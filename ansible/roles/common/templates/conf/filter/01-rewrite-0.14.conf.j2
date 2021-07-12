@@ -53,6 +53,11 @@
   </rule>
   <rule>
     key     programname
+    pattern ^(adjutant-api)$
+    tag openstack_python
+  </rule>
+  <rule>
+    key     programname
     pattern ^(ceilometer-polling|ceilometer-agent-notification)$
     tag openstack_python
   </rule>
@@ -171,6 +176,7 @@
     pattern .+
     tag unmatched
   </rule>
+  
 </match>
 
 # Retag log messages from MariaDB according to log format

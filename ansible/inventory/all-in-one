@@ -337,6 +337,10 @@ cloudkitty
 [cloudkitty-processor:children]
 cloudkitty
 
+# Adjutant
+[adjutant-api:children]
+adjutant
+
 # Freezer
 [freezer-api:children]
 freezer

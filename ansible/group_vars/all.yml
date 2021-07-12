@@ -578,6 +578,7 @@ enable_outward_rabbitmq: "{{ enable_murano | bool }}"
 enable_haproxy_memcached: "no"
 
 # Additional optional OpenStack features and services are specified here
+enable_adjutant: "no"
 enable_aodh: "no"
 enable_barbican: "no"
 enable_blazar: "no"
