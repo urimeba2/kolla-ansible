@@ -19,6 +19,7 @@
       changed_when: false
       with_items:
         - enable_aodh_{{ enable_aodh | bool }}
+        - enable_adjutant_{{ enable_adjutant | bool }}
         - enable_barbican_{{ enable_barbican | bool }}
         - enable_blazar_{{ enable_blazar | bool }}
         - enable_ceilometer_{{ enable_ceilometer | bool }}
@@ -132,6 +133,11 @@
             tasks_from: loadbalancer
           tags: aodh
           when: enable_aodh | bool
+        - include_role:
+            name: adjutant
+            tasks_from: loadbalancer
+          tags: adjutant
+          when: enable_adjutant | bool
         - include_role:
             name: barbican
             tasks_from: loadbalancer
@@ -888,6 +894,17 @@
     - { role: monasca,
         tags: monasca,
         when: enable_monasca | bool }
+
+- name: Apply role adjutant
+  gather_facts: false
+  hosts:
+    - adjutant-api
+    - '&enable_adjutant_True'
+  serial: '{{ kolla_serial|default("0") }}'
+  roles:
+    - { role: adjutant,
+        tags: adjutant,
+        when: enable_adjutant | bool }
 
 - name: Apply role aodh
   gather_facts: false

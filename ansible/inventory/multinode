@@ -150,6 +150,9 @@ control
 [cloudkitty:children]
 control
 
+[adjutant:children]
+control
+
 [freezer:children]
 control
 
