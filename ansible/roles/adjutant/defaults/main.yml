@@ -156,8 +156,8 @@ adjutant_custom_metrics_yaml_file: "metrics.yml"
 ####################
 adjutant_ks_services:
   - name: "adjutant"
-    type: "registrations"
-    description: "Openstack Adjjutant"
+    type: "registration"
+    description: "Openstack Adjutant"
     endpoints:
       - {'interface': 'public', 'url': '{{ adjutant_public_endpoint }}'}
 
