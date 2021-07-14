@@ -161,5 +161,11 @@ adjutant_ks_services:
     endpoints:
       - {'interface': 'public', 'url': '{{ adjutant_public_endpoint }}'}
 
+adjutant_ks_users:
+    user: "{{ adjutant_keystone_user }}"
+    password: "{{ adjutant_keystone_password }}"
+    role: "admin"
+
+
 adjutant_ks_roles:
   - "{{ adjutant_openstack_keystone_default_role }}"
