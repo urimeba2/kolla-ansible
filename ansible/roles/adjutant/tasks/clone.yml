@@ -1,5 +1,5 @@
 ---
-- name: Cloning ADjutant source repository for development
+- name: Cloning Adjutant source repository for development
   become: true
   git:
     repo: "{{ adjutant_git_repository }}"

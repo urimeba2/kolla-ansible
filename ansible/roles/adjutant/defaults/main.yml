@@ -162,6 +162,7 @@ adjutant_ks_services:
       - {'interface': 'public', 'url': '{{ adjutant_public_endpoint }}'}
 
 adjutant_ks_users:
+  - project: "service"
     user: "{{ adjutant_keystone_user }}"
     password: "{{ adjutant_keystone_password }}"
     role: "admin"
