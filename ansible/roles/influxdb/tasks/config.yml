@@ -25,18 +25,24 @@
   notify:
     - Restart influxdb container
 
-- name: Copying the example file
+ name: Copying example file
+  vars:
+    service: "{{ influxdb_services['influxdb'] }}"
   template:
-    src: "example.txt"
+    src: "{{ item }}"
     dest: "{{ node_config_directory }}/influxdb/example.txt"
     mode: "0660"
   become: true
   when:
-    - inventory_hostname in groups[item.value.group]
-    - item.value.enabled | bool
-  with_dict: "{{ influxdb_services }}"
+    - inventory_hostname in groups[service.group]
+    - service.enabled | bool
+  with_first_found:
+    - "{{ node_custom_config }}/influxdb/{{ inventory_hostname }}/example.txt"
+    - "{{ node_custom_config }}/example.txt"
+    - "example.txt"
   notify:
     - Restart influxdb container
+
 
 - name: Copying over influxdb config file
   vars:
