@@ -43,7 +43,6 @@
   notify:
     - Restart influxdb container
 
-
 - name: Copying over influxdb config file
   vars:
     service: "{{ influxdb_services['influxdb'] }}"
