@@ -47,7 +47,7 @@
 
 - name: Copy  a file to inside the container
   become: true
-  command: "docker cp roles/influxdb/templates/example.txt influxdb:/var/lib/influxdb/example.txt"
+  command: "docker cp roles/influxdb/templates/example.txt influxdb:/etc/influxdb/example.txt"
   run_once: False
   delegate_to: "{{ groups['influxdb'][0] }}"
   register: monasca_influxdb_database
