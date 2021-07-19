@@ -37,13 +37,13 @@
 
 - import_tasks: bootstrap_service.yml
 
-- name: Copy example file inside InfluxBD Container
-  become: true
-  command: "docker exec influxdb cp /etc/influxdb/influxdb.conf /var/lib/influxdb/influxdb.conf"
-  run_once: False
-  delegate_to: "{{ groups['influxdb'][0] }}"
-  register: monasca_influxdb_database
-  changed_when: False
+# - name: Copy example file inside InfluxBD Container
+#   become: true
+#   command: "docker exec influxdb cp /etc/influxdb/influxdb.conf /var/lib/influxdb/influxdb.conf"
+#   run_once: False
+#   delegate_to: "{{ groups['influxdb'][0] }}"
+#   register: monasca_influxdb_database
+#   changed_when: False
 
 - name: Copy  a file to inside the container
   become: true
