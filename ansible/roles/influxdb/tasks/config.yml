@@ -25,7 +25,7 @@
   notify:
     - Restart influxdb container
 
- name: Copying example file
+- name: Copying example file
   vars:
     service: "{{ influxdb_services['influxdb'] }}"
   template:
