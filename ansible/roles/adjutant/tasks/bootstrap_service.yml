@@ -14,6 +14,8 @@
     labels:
       BOOTSTRAP:
     name: "adjutant_api"
+    labels:
+      manteiner: "uriel medina"
     restart_policy: no
     volumes: "{{ adjutant_api.volumes|reject('equalto', '')|list }}"
   run_once: True
