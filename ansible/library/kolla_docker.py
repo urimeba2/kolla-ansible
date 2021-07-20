@@ -354,7 +354,7 @@ class DockerWorker(object):
 
     def check_container_differs(self):
         container_info = self.get_container_info()
-        print(container_info)
+        # print(container_info)
         return (
             self.compare_cap_add(container_info) or
             self.compare_security_opt(container_info) or
