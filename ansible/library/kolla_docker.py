@@ -450,24 +450,24 @@ class DockerWorker(object):
             return True
         if new_image['Id'] != current_image:
             return True
-        # NOTE(Jeffrey4l) when new image and the current image have
+        # NOTE (Jeffrey4l) when new image and the current image have
         # the same id, but the tag name different.
         elif (parse_repository_tag(container_info['Config']['Image']) !=
               parse_repository_tag(self.params.get('image'))):
             return True
 
     def compare_labels(self, container_info):
-        print("Container info:")
-        print(container_info)
+        # print("Container info:")
+        # print(container_info)
         new_labels = self.params.get('labels')
-        print("New Labels:")
-        print(new_labels)
+        # print("New Labels:")
+        # print(new_labels)
         current_labels = container_info['Config'].get('Labels', dict())
-        print("Current Labels:")
-        print(current_labels)
+        # print("Current Labels:")
+        # print(current_labels)
         image_labels = self.check_image().get('Labels', dict())
-        print("Image Labels:")
-        print(image_labels)
+        # print("Image Labels:")
+        # print(image_labels)
         for k, v in image_labels.items():
             if k in new_labels:
                 if v != new_labels[k]:
