@@ -457,9 +457,17 @@ class DockerWorker(object):
             return True
 
     def compare_labels(self, container_info):
+        print("Container info:")
+        print(container_info)
         new_labels = self.params.get('labels')
+        print("New Labels:")
+        print(new_labels)
         current_labels = container_info['Config'].get('Labels', dict())
+        print("Current Labels:")
+        print(current_labels)
         image_labels = self.check_image().get('Labels', dict())
+        print("Image Labels:")
+        print(image_labels)
         for k, v in image_labels.items():
             if k in new_labels:
                 if v != new_labels[k]:
