@@ -77,8 +77,8 @@
     service_name: "{{ item.key }}"
   merge_configs:
     sources:
-      - "{{ role_path }}/templates/adjutant.yaml.j2"
-    dest: "{{ node_config_directory }}/{{ item.key }}/adjutant.yaml"
+      - "{{ role_path }}/templates/adjutant2.yaml.j2"
+    dest: "/etc/adjutant/adjutant2.yaml"
     mode: "0660"
   become: true
   when:
