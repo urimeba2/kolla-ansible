@@ -67,9 +67,9 @@ adjutant_api_extra_volumes: "{{ adjutant_extra_volumes }}"
 
 ####################
 # OpenStack
-####################
-adjutant_admin_endpoint: "{{ admin_protocol }}://{{ kolla_internal_fqdn | put_address_in_context('url') }}:{{ adjutant_api_port }}"
-adjutant_internal_endpoint: "{{ internal_protocol }}://{{ kolla_internal_fqdn | put_address_in_context('url') }}:{{ adjutant_api_port }}"
+###################
+# adjutant_admin_endpoint: "{{ admin_protocol }}://{{ kolla_internal_fqdn | put_address_in_context('url') }}:{{ adjutant_api_port }}"
+# adjutant_internal_endpoint: "{{ internal_protocol }}://{{ kolla_internal_fqdn | put_address_in_context('url') }}:{{ adjutant_api_port }}"
 adjutant_public_endpoint: "{{ public_protocol }}://{{ kolla_external_fqdn | put_address_in_context('url') }}:{{ adjutant_api_port }}"
 
 adjutant_logging_debug: "{{ openstack_logging_debug }}"
@@ -80,9 +80,10 @@ openstack_adjutant_auth: "{{ openstack_auth }}"
 
 
 ####################
-# Cloudkitty
+# Adjutant
 ####################
 adjutant_openstack_keystone_default_role: "project_admin"
+horizon_public_url: 'https' if horizon_enable_tls_backend | bool else 'http'://{{ api_interface_address }}:{{ horizon_listen_port }}"
 
 ####################
 # Kolla
@@ -91,65 +92,6 @@ adjutant_git_repository: "{{ kolla_dev_repos_git }}/{{ project_name }}"
 adjutant_dev_repos_pull: "{{ kolla_dev_repos_pull }}"
 adjutant_dev_mode: "{{ kolla_dev_mode }}"
 adjutant_source_version: "{{ kolla_source_version }}"
-adjutant_custom_metrics_yaml_file: "metrics.yml"
-
-####################
-# # Storage backend
-# ####################
-# # Valid options are 'sqlalchemy', 'influxdb' or 'elasticsearch'. The default value is
-# # 'influxdb', which matches the default in Cloudkitty since the Stein release.
-# # When the backend is "influxdb" or "elasticsearch", we also enable the required service
-# # accordingly.
-# # Additionally, we use cloudkitty API v2 for any backend but sqlalchemy.
-# cloudkitty_storage_backend: "influxdb"
-
-# # InfluxDB retention policy to use (defaults to autogen).
-# # cloudkitty_influxdb_retention_policy: "autogen"
-
-# # Set to true to use SSL for InfluxDB connections.
-# # cloudkitty_influxdb_use_ssl: false
-
-# # Path of the CA certificate to trust for HTTPS connections.
-# # cloudkitty_influxdb_cafile: "{{ openstack_cacert }}"
-
-# # Set to true to authorize insecure HTTPS connections to InfluxDB.
-# # This means, HTTPS connections without validating the certificate used by InfluxDB
-# # cloudkitty_influxdb_insecure_connections: false
-
-# cloudkitty_influxdb_name: "cloudkitty"
-
-# # Set the elasticsearch index name.
-# cloudkitty_elasticsearch_index_name: "cloudkitty"
-
-# # Set the elasticsearch host URL.
-# cloudkitty_elasticsearch_url: "{{ internal_protocol }}://{{ elasticsearch_address }}:{{ elasticsearch_port }}"
-
-# # Path of the CA certificate to trust for HTTPS connections.
-# # cloudkitty_elasticsearch_cafile: "{{ openstack_cacert }}"
-
-# # Set to true to authorize insecure HTTPS connections to Elasticsearch.
-# # This means, HTTPS connections without validating the certificate used by elasticsearch
-# cloudkitty_elasticsearch_insecure_connections: false
-
-# ####################
-# # Collector
-# ####################
-# # Valid options are 'gnocchi', 'monasca' or 'prometheus'. The default value is
-# # 'gnocchi', which matches the default in Cloudkitty.
-# cloudkitty_collector_backend: "gnocchi"
-
-# # Set Monasca interface used for keystone URL discovery.
-# cloudkitty_monasca_interface: "internal"
-
-# # Set prometheus collector URL.
-# cloudkitty_prometheus_url: "{{ internal_protocol }}://{{ kolla_internal_fqdn | put_address_in_context('url') }}:{{ prometheus_port }}"
-
-# Path of the CA certificate to trust for HTTPS connections.
-# cloudkitty_prometheus_cafile: "{{ openstack_cacert }}"
-
-# # Set to true to authorize insecure HTTPS connections to Prometheus.
-# # This means, HTTPS connections without validating the certificate used by prometheus.
-# cloudkitty_prometheus_insecure_connections: false
 
 ####################
 # Keystone

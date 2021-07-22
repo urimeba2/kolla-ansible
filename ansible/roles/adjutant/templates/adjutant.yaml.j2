@@ -149,7 +149,7 @@ notifications:
 
 workflow:
   # URI - The base Horizon url for Adjutant to use when producing links to Horizon.
-  horizon_url: http://205.251.136.98:16380/dashboard
+  horizon_url: {{ horizon_public_url }}
   # Integer - The default token expiry time for Task tokens.
   default_token_expiry: 86400
   task_defaults:
