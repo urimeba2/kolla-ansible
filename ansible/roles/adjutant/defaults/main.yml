@@ -83,7 +83,7 @@ openstack_adjutant_auth: "{{ openstack_auth }}"
 # Adjutant
 ####################
 adjutant_openstack_keystone_default_role: "project_admin"
-horizon_public_url: 'https' if horizon_enable_tls_backend | bool else 'http'://{{ api_interface_address }}:{{ horizon_listen_port }}"
+horizon_public_url: "https" if horizon_enable_tls_backend | bool else "http"://{{ api_interface_address }}:{{ horizon_listen_port }}"
 
 ####################
 # Kolla
