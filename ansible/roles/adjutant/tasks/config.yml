@@ -79,7 +79,7 @@
   # probably be more robust).
   template:
     src: "adjutant.yml.j2"
-    dest: "/etc/adjutant/test.yaml"
+    dest: "/test.yaml"
     owner: "{{ config_owner_user }}"
     group: "{{ config_owner_group }}"
     mode: "0644"
