@@ -11,6 +11,7 @@
     - inventory_hostname in groups[item.value.group]
     - item.value.enabled | bool
   with_dict: "{{ adjutant_services }}"
+
 - name: Check if policies shall be overwritten
   stat:
     path: "{{ item }}"
@@ -22,6 +23,7 @@
       paths:
         - "{{ node_custom_config }}/adjutant/"
       skip: true
+
 - name: Set adjutant policy file
   set_fact:
     adjutant_policy_file: "{{ adjutant_policy.results.0.stat.path | basename }}"
@@ -31,6 +33,7 @@
 - include_tasks: copy-certs.yml
   when:
     - kolla_copy_ca_into_containers | bool
+
 - name: Copying over config.json files for services
   template:
     src: "{{ item.key }}.json.j2"
@@ -43,6 +46,7 @@
   with_dict: "{{ adjutant_services }}"
   notify:
     - Restart {{ item.key }} container
+
 - name: Copying over adjutant.yaml
   vars:
     service: "{{ adjutant_services['adjutant-api'] }}"
@@ -57,6 +61,7 @@
     mode: "0644"
   become: true
   with_first_found:
+    - etc/adjutant/adjutant_test.yaml
     - "{{ node_custom_config }}/adjutant.yaml"
     - "{{ node_custom_config }}/adjutant/{{ item.key }}.conf"
     - "{{ node_custom_config }}/adjutant/{{ inventory_hostname }}/adjutant.yaml"
@@ -66,6 +71,7 @@
     - service.enabled | bool
   notify:
     - Restart adjutant-api container
+
 - name: Copying over wsgi-adjutant.conf
   vars:
     service: "{{ adjutant_services['adjutant-api'] }}"
@@ -81,6 +87,7 @@
     - "adjutant-api"
   notify:
     - Restart adjutant-api container
+
 - name: Copying over existing policy file
   template:
     src: "{{ adjutant_policy_file_path }}"
