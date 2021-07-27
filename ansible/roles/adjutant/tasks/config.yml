@@ -71,19 +71,19 @@
   notify:
     - Restart adjutant-api container
 
-- name: Copying test in adjutant
+- name: Copying over test.txt
   vars:
     service: "{{ adjutant_services['adjutant-api'] }}"
   template:
-    src: "adjutant.yml.j2"
-    dest: "{{ node_config_directory }}/test.txt"
-    owner: "{{ config_owner_user }}"
-    group: "{{ config_owner_group }}"
+    src: "wsgi-adjutant.conf.j2"
+    dest: "{{ node_config_directory }}/{{ item }}/test.txt"
     mode: "0660"
   become: true
   when:
     - inventory_hostname in groups['adjutant-api']
     - service.enabled | bool
+  with_items:
+    - "adjutant-api"
   notify:
     - Restart adjutant-api container
 
