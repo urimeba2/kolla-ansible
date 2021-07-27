@@ -4,18 +4,17 @@
   vars:
     service_precheck_services: "{{ adjutant_services }}"
     service_name: "{{ project_name }}"
-
 - name: Get container facts
   become: true
   kolla_container_facts:
     name:
       - adjutant_api
   register: container_facts
-
-- name: Checking free port for Adjutant API
+  
+- name: Checking free port for adjutant API
   wait_for:
     host: "{{ api_interface_address }}"
-    port: "{{ adjutant_api_port }}"
+    port: "{{ adjutant_api_listen_port }}"
     connect_timeout: 1
     timeout: 1
     state: stopped

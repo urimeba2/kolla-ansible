@@ -1,5 +1,5 @@
 ---
-- name: Creating Adjutant database
+- name: Creating adjutant database
   become: true
   kolla_toolbox:
     module_name: mysql_db
@@ -14,7 +14,7 @@
   when:
     - not use_preconfigured_databases | bool
 
-- name: Creating Adjutant database user and setting permissions
+- name: Creating adjutant database user and setting permissions
   become: true
   kolla_toolbox:
     module_name: mysql_user
@@ -32,5 +32,5 @@
   delegate_to: "{{ groups['adjutant-api'][0] }}"
   when:
     - not use_preconfigured_databases | bool
-
-- import_tasks: bootstrap_service.yml
+    
+- include_tasks: bootstrap_service.yml

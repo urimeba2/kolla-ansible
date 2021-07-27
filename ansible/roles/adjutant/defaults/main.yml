@@ -1,114 +1,68 @@
 ---
 project_name: "adjutant"
-
 adjutant_services:
   adjutant-api:
-    container_name: "adjutant_api"
-    group: "adjutant-api"
+    container_name: adjutant_api
+    group: adjutant-api
+    enabled: true
     image: "{{ adjutant_api_image_full }}"
-    enabled: True
     volumes: "{{ adjutant_api_default_volumes + adjutant_api_extra_volumes }}"
     dimensions: "{{ adjutant_api_dimensions }}"
-    healthcheck: "{{ adjutant_api_healthcheck }}"
     haproxy:
       adjutant_api:
         enabled: "{{ enable_adjutant }}"
         mode: "http"
         external: false
-        port: "{{ adjutant_api_port }}"
+        port: "{{ adjutant_api_listen_port }}"
       adjutant_api_external:
         enabled: "{{ enable_adjutant }}"
         mode: "http"
         external: true
-        port: "{{ adjutant_api_port }}"
-
+        port: "{{ adjutant_api_listen_port }}"
 ####################
 # Database
 ####################
 adjutant_database_name: "adjutant"
 adjutant_database_user: "{% if use_preconfigured_databases | bool and use_common_mariadb_user | bool %}{{ database_user }}{% else %}adjutant{% endif %}"
 adjutant_database_address: "{{ database_address | put_address_in_context('url') }}:{{ database_port }}"
-
-
 ####################
 # Docker
 ####################
 adjutant_install_type: "{{ kolla_install_type }}"
 adjutant_tag: "{{ openstack_tag }}"
-
-adjutant_api_image: "urimeba2/adjutant"
+adjutant_api_image: "{{ docker_registry ~ '/' if docker_registry else '' }}{{ docker_namespace }}/{{ kolla_base_distro }}-{{ adjutant_install_type }}-adjutant-api"
 adjutant_api_tag: "{{ adjutant_tag }}"
 adjutant_api_image_full: "{{ adjutant_api_image }}:{{ adjutant_api_tag }}"
-
 adjutant_api_dimensions: "{{ default_container_dimensions }}"
-
 adjutant_api_default_volumes:
   - "{{ node_config_directory }}/adjutant-api/:{{ container_config_directory }}/:ro"
   - "/etc/localtime:/etc/localtime:ro"
-  - "{{ '/etc/timezone:/etc/timezone:ro' if ansible_facts.os_family == 'Debian' else '' }}"
+  - "{{ '/etc/timezone:/etc/timezone:ro' if kolla_base_distro in ['debian', 'ubuntu'] else '' }}"
   - "kolla_logs:/var/log/kolla/"
-  - "{{ kolla_dev_repos_directory ~ '/adjutant/adjutant:/var/lib/kolla/venv/lib/python' ~ distro_python_version ~ '/site-packages/adjutant' if adjutant_dev_mode | bool else '' }}"
-
-adjutant_api_enable_healthchecks: "{{ enable_container_healthchecks }}"
-adjutant_api_healthcheck_interval: "{{ default_container_healthcheck_interval }}"
-adjutant_api_healthcheck_retries: "{{ default_container_healthcheck_retries }}"
-adjutant_api_healthcheck_start_period: "{{ default_container_healthcheck_start_period }}"
-adjutant_api_healthcheck_test: ["CMD-SHELL", "healthcheck_curl http://{{ api_interface_address |  put_address_in_context('url') }}:{{ adjutant_api_port}}"]
-adjutant_api_healthcheck_timeout: "{{ default_container_healthcheck_timeout }}"
-adjutant_api_healthcheck:
-  interval: "{{ adjutant_api_healthcheck_interval }}"
-  retries: "{{ adjutant_api_healthcheck_retries }}"
-  start_period: "{{ adjutant_api_healthcheck_start_period }}"
-  test: "{% if adjutant_api_enable_healthchecks | bool %}{{ adjutant_api_healthcheck_test }}{% else %}NONE{% endif %}"
-  timeout: "{{ adjutant_api_healthcheck_timeout }}"
-
 adjutant_extra_volumes: "{{ default_extra_volumes }}"
 adjutant_api_extra_volumes: "{{ adjutant_extra_volumes }}"
-
 ####################
 # OpenStack
-###################
-# adjutant_admin_endpoint: "{{ admin_protocol }}://{{ kolla_internal_fqdn | put_address_in_context('url') }}:{{ adjutant_api_port }}"
-# adjutant_internal_endpoint: "{{ internal_protocol }}://{{ kolla_internal_fqdn | put_address_in_context('url') }}:{{ adjutant_api_port }}"
-adjutant_public_endpoint: "{{ public_protocol }}://{{ kolla_external_fqdn | put_address_in_context('url') }}:{{ adjutant_api_port }}"
-
+####################
+adjutant_admin_endpoint: "{{ admin_protocol }}://{{ adjutant_internal_fqdn | put_address_in_context('url') }}:{{ adjutant_api_port }}"
+adjutant_internal_endpoint: "{{ internal_protocol }}://{{ adjutant_internal_fqdn | put_address_in_context('url') }}:{{ adjutant_api_port }}"
+adjutant_public_endpoint: "{{ public_protocol }}://{{ adjutant_external_fqdn | put_address_in_context('url') }}:{{ adjutant_api_port }}"
 adjutant_logging_debug: "{{ openstack_logging_debug }}"
-
 adjutant_keystone_user: "adjutant"
-
 openstack_adjutant_auth: "{{ openstack_auth }}"
-
-
-####################
-# Adjutant
-####################
-adjutant_openstack_keystone_default_role: "project_admin"
-horizon_public_url: "http://{{ api_interface_address }}:{{ horizon_listen_port }}"
-
-####################
-# Kolla
-####################
-adjutant_git_repository: "{{ kolla_dev_repos_git }}/{{ project_name }}"
-adjutant_dev_repos_pull: "{{ kolla_dev_repos_pull }}"
-adjutant_dev_mode: "{{ kolla_dev_mode }}"
-adjutant_source_version: "{{ kolla_source_version }}"
-
 ####################
 # Keystone
 ####################
 adjutant_ks_services:
   - name: "adjutant"
     type: "registration"
-    description: "Openstack Adjutant"
+    description: "OpenStack Registration Service"
     endpoints:
-      - {'interface': 'public', 'url': '{{ adjutant_public_endpoint }}'}
-
+      - {'interface': 'admin', 'url': '{{ adjutant_admin_endpoint }}/v1'}
+      - {'interface': 'internal', 'url': '{{ adjutant_internal_endpoint }}/v1'}
+      - {'interface': 'public', 'url': '{{ adjutant_public_endpoint }}/v1'}
 adjutant_ks_users:
   - project: "service"
     user: "{{ adjutant_keystone_user }}"
     password: "{{ adjutant_keystone_password }}"
     role: "admin"
-
-
-adjutant_ks_roles:
-  - "{{ adjutant_openstack_keystone_default_role }}"

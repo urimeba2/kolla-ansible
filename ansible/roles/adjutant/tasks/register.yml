@@ -5,4 +5,4 @@
     service_ks_register_auth: "{{ openstack_adjutant_auth }}"
     service_ks_register_services: "{{ adjutant_ks_services }}"
     service_ks_register_users: "{{ adjutant_ks_users }}"
-    service_ks_register_roles: "{{ adjutant_ks_roles }}"
+  tags: always

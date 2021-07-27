@@ -4,10 +4,10 @@
     "command": "{{ adjutant_cmd }} -DFOREGROUND",
     "config_files": [
         {
-            "source": "{{ container_config_directory }}/adjutant.conf",
-            "dest": "/etc/adjutant/adjutant.conf",
+            "source": "{{ container_config_directory }}/adjutant.yaml",
+            "dest": "/etc/adjutant/adjutant.yaml",
             "owner": "adjutant",
-            "perm": "0600"
+            "perm": "0644"
         },
         {
             "source": "{{ container_config_directory }}/wsgi-adjutant.conf",
@@ -20,19 +20,16 @@
             "dest": "/etc/adjutant/{{ adjutant_policy_file }}",
             "owner": "adjutant",
             "perm": "0600"
-        }{% endif %}{% if adjutant_custom_metrics_used %},
-        {
-            "source": "{{ container_config_directory }}/{{ adjutant_custom_metrics_yaml_file }}",
-            "dest": "/etc/adjutant/{{ adjutant_custom_metrics_yaml_file }}",
-            "owner": "adjutant",
-            "perm": "0600"
         }{% endif %}
     ],
     "permissions": [
         {
+            "path": "/var/lib/adjutant",
+            "owner": "adjutant:adjutant"
+        },
+        {
             "path": "/var/log/kolla/adjutant",
-            "owner": "adjutant:adjutant",
-            "recurse": true
+            "owner": "adjutant:kolla"
         }
     ]
 }
