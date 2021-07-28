@@ -34,7 +34,7 @@ adjutant_install_type: "{{ kolla_install_type }}"
 adjutant_tag: "{{ openstack_tag }}"
 adjutant_api_image: "{{ docker_registry ~ '/' if docker_registry else '' }}{{ docker_namespace }}/{{ kolla_base_distro }}-{{ adjutant_install_type }}-adjutant-api"
 adjutant_api_tag: "{{ adjutant_tag }}"
- adjutant_api_image_full: "{{ adjutant_api_image }}:{{ adjutant_api_tag }}"
+adjutant_api_image_full: "{{ adjutant_api_image }}:{{ adjutant_api_tag }}"
 adjutant_api_dimensions: "{{ default_container_dimensions }}"
 adjutant_api_default_volumes:
   - "{{ node_config_directory }}/adjutant-api/:{{ container_config_directory }}/:ro"
