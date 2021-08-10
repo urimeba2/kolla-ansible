@@ -30,6 +30,7 @@
     adjutant_policy_file_path: "{{ adjutant_policy.results.0.stat.path }}"
   when:
     - adjutant_policy.results
+
 - include_tasks: copy-certs.yml
   when:
     - kolla_copy_ca_into_containers | bool
@@ -71,21 +72,6 @@
   notify:
     - Restart adjutant-api container
 
-- name: Copying over test.txt
-  vars:
-    service: "{{ adjutant_services['adjutant-api'] }}"
-  template:
-    src: "wsgi-adjutant.conf.j2"
-    dest: "{{ node_config_directory }}/{{ item }}/test.txt"
-    mode: "0660"
-  become: true
-  when:
-    - inventory_hostname in groups['adjutant-api']
-    - service.enabled | bool
-  with_items:
-    - "adjutant-api"
-  notify:
-    - Restart adjutant-api container
 
 - name: Copying over wsgi-adjutant.conf
   vars:
@@ -116,5 +102,6 @@
   with_dict: "{{ adjutant_services }}"
   notify:
     - Restart {{ item.key }} container
+
 - include_tasks: check-containers.yml
   when: kolla_action != "config"

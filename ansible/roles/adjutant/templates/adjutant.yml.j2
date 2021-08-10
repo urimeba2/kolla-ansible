@@ -55,6 +55,7 @@ django:
     # Boolean
     # Whether to use SSL for email. Mutually exclusive with 'use_tls'.
     use_ssl: False
+
 identity:
   # Integer
   # Cache time for Keystone Tokens in the Keystone Middleware.
@@ -101,6 +102,7 @@ identity:
     # URI
     # Keystone auth url that Adjutant will use.
     auth_url: {{ keystone_internal_url }}/v3 
+
 api:
   # List
   # List of Active Delegate APIs.
@@ -147,6 +149,7 @@ api:
       # String
       # Parent id under which this project will be created. Default is None, and will create under default domain.
       # default_parent_id: <your_value>
+
 notifications:
   handler_defaults:
     EmailNotification:
@@ -165,6 +168,7 @@ notifications:
       # String
       # Email html template for this notification.
       # html_template: <your_value>
+
 workflow:
   # URI
   # The base Horizon url for Adjutant to use when producing links to Horizon.
@@ -668,6 +672,7 @@ workflow:
             reply: no-reply@example.com
         standard_handlers:
         - EmailNotification
+
 quota:
   # Dict
   # A definition of the quota size groups that Adjutant should use.

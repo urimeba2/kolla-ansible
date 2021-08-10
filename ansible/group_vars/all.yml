@@ -70,6 +70,16 @@ container_proxy:
 # to the api_interface.  Allow the bind address to be an override.
 api_interface_address: "{{ 'api' | kolla_address }}"
 
+###################
+# Adjutant options
+###################
+adjutant_email_host:
+adjutant_email_port:
+adjutant_email_user:
+adjutant_email_password:
+adjutant_email_tls: False
+adjutant_email_ssl: False
+
 ################
 # Chrony options
 ################

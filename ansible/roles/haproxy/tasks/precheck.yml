@@ -850,3 +850,4 @@
     - inventory_hostname in groups['haproxy']
     - haproxy_stat.find('adjutant_api') == -1
     - haproxy_vip_prechecks
+    

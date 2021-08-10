@@ -6,7 +6,7 @@
   kolla_docker:
     action: "start_container"
     common_options: "{{ docker_common_options }}"
-    detach: True
+    detach: False
     environment:
       KOLLA_BOOTSTRAP:
       KOLLA_CONFIG_STRATEGY: "{{ config_strategy }}"

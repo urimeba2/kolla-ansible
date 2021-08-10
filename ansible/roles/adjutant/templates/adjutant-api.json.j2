@@ -21,6 +21,7 @@
             "owner": "adjutant",
             "perm": "0600"
         }{% endif %}
+
     ],
     "permissions": [
         {
@@ -29,7 +30,8 @@
         },
         {
             "path": "/var/log/kolla/adjutant",
-            "owner": "adjutant:kolla"
+            "owner": "adjutant:kolla",
+            "recurse": true
         }
     ]
 }

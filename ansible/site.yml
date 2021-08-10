@@ -129,6 +129,11 @@
   tasks:
     - block:
         - include_role:
+            name: adjutant
+            tasks_from: loadbalancer
+          tags: adjutant
+          when: enable_adjutant | bool
+        - include_role:
             name: aodh
             tasks_from: loadbalancer
           tags: aodh

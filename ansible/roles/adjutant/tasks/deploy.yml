@@ -7,6 +7,6 @@
 
 - include_tasks: bootstrap.yml
   when: inventory_hostname in groups['adjutant-api']
-  
+
 - name: Flush handlers
   meta: flush_handlers
