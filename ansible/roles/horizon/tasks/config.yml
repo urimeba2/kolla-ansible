@@ -130,7 +130,7 @@
     - Restart horizon container
 
 - name: Copying custom theme
-  shell: sudo docker cp /opt/stack/rcue urimeba2/centos-source-horizon:wallaby:/
+  shell: sudo docker cp /opt/stack/rcue horizon:/
   # become: true
   # vars:
   #   horizon: "{{ horizon_services['horizon'] }}"
