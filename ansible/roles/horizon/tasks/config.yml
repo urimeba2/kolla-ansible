@@ -130,8 +130,13 @@
     - Restart horizon container
 
 - name: Copy custom theme
+  vars:
+    service_name: "zun-cni-daemon"
+    service: "{{ horizon_services[service_name] }}"
   become: true
   command: "docker cp /opt/stack/rcue {{ service.container_name }}:/"
+  
+    
   # when:
     # - kolla_copy_ca_into_containers | bool or horizon_enable_tls_backend | bool
   notify:
