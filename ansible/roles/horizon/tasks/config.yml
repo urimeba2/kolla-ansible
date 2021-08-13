@@ -130,13 +130,14 @@
     - Restart horizon container
 
 - name: Copying custom theme
-  become: true
-  vars:
-    horizon: "{{ horizon_services['horizon'] }}"
-  template:
-    src: /opt/stack/rcue
-    dest: "{{ node_config_directory }}/horizon/rcue"
-    mode: "0660"
+  shell: docker cp /opt/stack/rcue urimeba2/centos-source-horizon:wallaby:/
+  # become: true
+  # vars:
+  #   horizon: "{{ horizon_services['horizon'] }}"
+  # template:
+  #   src: /opt/stack/rcue
+  #   dest: "{{ node_config_directory }}/horizon/rcue"
+  #   mode: "0660"
   notify:
     - Restart horizon container
 
