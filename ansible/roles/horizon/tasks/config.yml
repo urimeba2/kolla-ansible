@@ -138,6 +138,7 @@
   #   src: /opt/stack/rcue
   #   dest: "{{ node_config_directory }}/horizon/rcue"
   #   mode: "0660"
+  when: custom_theme_path is defined
   notify:
     - Restart horizon container
 
