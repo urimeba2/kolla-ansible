@@ -817,3 +817,9 @@
 
 # this is UDP port
 #hacluster_corosync_port: 5405
+
+####################
+# Horizon Custom Theme Path
+# This option allows you to copy a custom theme into "horizon" docker
+####################
+# custom_theme_path: ""
