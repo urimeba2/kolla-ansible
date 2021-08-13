@@ -130,7 +130,7 @@
     - Restart horizon container
 
 - name: Copying custom theme
-  shell: sudo docker cp /opt/stack/rcue horizon:/
+  shell: sudo docker cp /opt/stack/rcue horizon:/var/lib/kolla/venv/lib/python3.6/site-packages/openstack_dashboard/themes
   # become: true
   # vars:
   #   horizon: "{{ horizon_services['horizon'] }}"
