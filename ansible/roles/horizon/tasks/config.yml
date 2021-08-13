@@ -129,6 +129,17 @@
   notify:
     - Restart horizon container
 
+- name: Copy custom theme
+  become: true
+  command: "docker cp /opt/stack/rcue {{ service.container_name }}:/"
+  # when:
+    # - kolla_copy_ca_into_containers | bool or horizon_enable_tls_backend | bool
+  notify:
+    - Restart horizon container
+
+
+
 - include_tasks: copy-certs.yml
   when:
     - kolla_copy_ca_into_containers | bool or horizon_enable_tls_backend | bool
+  
