@@ -143,7 +143,7 @@
 - name: Copying custom loginForm
   become: true
   copy:
-    src: "{{ node_config_directory }}config/horizon/horizon/horizon/templates/auth/_login_form.html"
+    src: "{{ node_config_directory }}/config/horizon/horizon/horizon/templates/auth/_login_form.html"
     dest: "{{ node_config_directory }}/_login_form.html"
     mode: "0660"
   when:
