@@ -16,12 +16,7 @@
             "owner": "root",
             "perm": "0755"
         },
-                {
-            "source": "{{ container_config_directory }}/_login_form.html",
-            "dest": "/var/lib/kolla/venv/lib/python3.8/site-packages/horizon/templates/auth/_login_form.html",
-            "owner": "root",
-            "perm": "0755"
-        },
+        
 {% for path in custom_policy %}
         {
             "source": "{{ container_config_directory }}/{{ path | basename }}",
