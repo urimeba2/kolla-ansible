@@ -14,7 +14,7 @@
             "source": "{{ container_config_directory }}/ubuntu",
             "dest": "/var/lib/kolla/venv/lib/python3.8/site-packages/openstack_dashboard/themes/ubuntu",
             "owner": "root",
-            "perm": "0777"
+            "perm": "0755"
         },
 {% for path in custom_policy %}
         {
