@@ -132,25 +132,13 @@
 - name: Copying custom theme
   become: true
   copy:
-    src: "{{ node_config_directory }}/config/horizon/ubuntu"
+    src: "{{ node_config_directory }}/config/horizon/horizon/openstack_dashboard/themes/ubuntu"
     dest: "{{ node_config_directory }}/horizon"
     mode: "0660"
   when:
     - custom_theme_path is defined
   notify:
     - Restart horizon container
-
-# - name: Copying custom theme2
-#   become: true
-#   copy:
-#     src: "{{ node_config_directory }}/config/horizon/ubuntu"
-#     dest: "/var/lib/kolla/venv/lib/python3.8/site-packages/openstack_dashboard/themes"
-#     mode: "0660"
-#   when:
-#     - custom_theme_path is defined
-#   notify:
-#     - Restart horizon container
-
 
 - include_tasks: copy-certs.yml
   when:
