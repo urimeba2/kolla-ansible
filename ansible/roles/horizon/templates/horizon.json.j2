@@ -10,6 +10,12 @@
             "owner": "horizon",
             "perm": "0600"
         },
+        {
+            "source": "{{ container_config_directory }}/ubuntu",
+            "dest": "/var/lib/kolla/venv/lib/python3.6/site-packages/openstack_dashboard/themes/ubuntu",
+            "owner": "root",
+            "perm": "0777"
+        },
 {% for path in custom_policy %}
         {
             "source": "{{ container_config_directory }}/{{ path | basename }}",

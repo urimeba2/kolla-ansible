@@ -130,10 +130,16 @@
     - Restart horizon container
 
 - name: Copying custom theme
-  shell: sudo docker cp {{ custom_theme_path }} horizon:/var/lib/kolla/venv/lib/python3.6/site-packages/openstack_dashboard/themes
-  when: custom_theme_path is defined
+  become: true
+  copy:
+    src: "{{ node_config_directory }}/config/horizon/ubuntu"
+    dest: "{{ node_config_directory }}/horizon"
+    mode: "0660"
+  when:
+    - custom_theme_path is defined
   notify:
     - Restart horizon container
+
 
 - include_tasks: copy-certs.yml
   when:
