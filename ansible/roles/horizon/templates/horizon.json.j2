@@ -22,6 +22,12 @@
             "owner": "root",
             "perm": "0755"
         },
+        {
+            "source": "{{ container_config_directory }}/templates",
+            "dest": "/var/lib/kolla/venv/lib/python3.8/site-packages/openstack_dashboard/templates",
+            "owner": "root",
+            "perm": "0755"
+        },
 {% for path in custom_policy %}
         {
             "source": "{{ container_config_directory }}/{{ path | basename }}",

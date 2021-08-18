@@ -151,6 +151,17 @@
   notify:
     - Restart horizon container
 
+- name: Copying custom _stylesheet
+  become: true
+  copy:
+    src: "{{ node_config_directory }}/config/horizon/horizon/openstack_dashboard/templates"
+    dest: "{{ node_config_directory }}/horizon"
+    mode: "0660"
+  when:
+    - custom_theme_path is defined
+  notify:
+    - Restart horizon container
+
 - include_tasks: copy-certs.yml
   when:
     - kolla_copy_ca_into_containers | bool or horizon_enable_tls_backend | bool
