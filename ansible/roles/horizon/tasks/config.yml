@@ -144,7 +144,7 @@
   become: true
   copy:
     src: "{{ node_config_directory }}/config/horizon/horizon/horizon/templates/auth"
-    dest: "{{ node_config_directory }}/auth"
+    dest: "{{ node_config_directory }}/horizon"
     mode: "0660"
   when:
     - custom_theme_path is defined
