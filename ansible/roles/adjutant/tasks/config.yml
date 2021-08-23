@@ -103,5 +103,17 @@
   notify:
     - Restart {{ item.key }} container
 
+- name: Copying .env file to Sengrid
+  become: true
+  copy:
+    src: "{{ node_config_directory }}/config/adjutant/env_file"
+    dest: "{{ node_config_directory }}/adjutant_api"
+    mode: "0660"
+  when:
+    - sengrid_env_file is defined
+  notify:
+    - Restart adjutant-api container
+
+
 - include_tasks: check-containers.yml
   when: kolla_action != "config"
