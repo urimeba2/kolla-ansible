@@ -119,7 +119,7 @@
     service: "{{ adjutant_services['adjutant-api'] }}"
   template:
     src: "{{ item }}"
-    dest: "{{ node_config_directory }}/adjutant-api/test.yaml"
+    dest: "{{ node_config_directory }}/adjutant-api/env_file.env"
     owner: "{{ config_owner_user }}"
     group: "{{ config_owner_group }}"
     mode: "0644"
