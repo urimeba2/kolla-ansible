@@ -10,6 +10,12 @@
             "perm": "0644"
         },
         {
+            "source": "{{ container_config_directory }}/env_file.env",
+            "dest": "/etc/adjutant/test.yaml",
+            "owner": "adjutant",
+            "perm": "0644"
+        },
+        {
             "source": "{{ container_config_directory }}/wsgi-adjutant.conf",
             "dest": "/etc/{{ adjutant_dir }}/wsgi-adjutant.conf",
             "owner": "adjutant",
