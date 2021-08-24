@@ -173,7 +173,8 @@ notifications:
 workflow:
   # URI
   # The base Horizon url for Adjutant to use when producing links to Horizon.
-  horizon_url: https://{{ kolla_internal_vip_address }}
+  horizon_url: {{ internal_protocol }}://{{ kolla_internal_vip_address }}
+  horizon_url_external: {{ public_protocol }}://{{ kolla_external_fqdn }}
   # Integer
   # The default token expiry time for Task tokens.
   default_token_expiry: 86400
