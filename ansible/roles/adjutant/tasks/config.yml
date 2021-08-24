@@ -103,14 +103,34 @@
   notify:
     - Restart {{ item.key }} container
 
+# - name: Copying .env file to Sengrid
+#   become: true
+#   copy:
+#     src: "{{ node_config_directory }}/config/adjutant/env_file"
+#     dest: "{{ node_config_directory }}/adjutant_api"
+#     mode: "0660"
+#   when:
+#     - sengrid_env_file is defined
+#   notify:
+#     - Restart adjutant-api container
+
 - name: Copying .env file to Sengrid
+  vars:
+    service: "{{ adjutant_services['adjutant-api'] }}"
+  template:
+    src: "{{ item }}"
+    dest: "{{ node_config_directory }}/adjutant-api/test.yaml"
+    owner: "{{ config_owner_user }}"
+    group: "{{ config_owner_group }}"
+    mode: "0644"
   become: true
-  copy:
-    src: "{{ node_config_directory }}/config/adjutant/env_file"
-    dest: "{{ node_config_directory }}/adjutant_api"
-    mode: "0660"
+  with_first_found:
+    - "{{ node_custom_config }}/adjutant.yaml"
+    - "{{ node_custom_config }}/adjutant/{{ item.key }}.conf"
+    - "{{ node_custom_config }}/adjutant/{{ inventory_hostname }}/adjutant.yaml"
   when:
-    - sengrid_env_file is defined
+    - inventory_hostname in groups['adjutant-api']
+    - service.enabled | bool
   notify:
     - Restart adjutant-api container
 
