@@ -125,9 +125,7 @@
     mode: "0644"
   become: true
   with_first_found:
-    - "{{ node_custom_config }}/adjutant.yaml"
-    - "{{ node_custom_config }}/adjutant/{{ item.key }}.conf"
-    - "{{ node_custom_config }}/adjutant/{{ inventory_hostname }}/adjutant.yaml"
+    - "{{ node_custom_config }}/adjutant/env_file"
   when:
     - inventory_hostname in groups['adjutant-api']
     - service.enabled | bool
