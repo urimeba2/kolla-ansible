@@ -161,7 +161,8 @@ notifications:
     EmailNotification:
       # List
       # List of email addresses to send this notification to.
-      # emails:
+      emails:
+        - urimeba511@gmail.com
       # String
       # From email for this notification.
       from: bounce+%(task_uuid)s@example.com
@@ -170,7 +171,7 @@ notifications:
       reply: no-reply@example.com
       # String
       # Email template for this notification. No template will cause the email not to send.
-      template: notification.txt
+      template: notification.html
       # String
       # Email html template for this notification.
       # html_template: <your_value>
@@ -188,7 +189,7 @@ workflow:
       initial:
         # String
         # Default email subject for this stage
-        subject: Task Confirmation
+        subject: Task Confirmation for Lorius Cloud
         # String
         # Default from email for this stage
         from: bounce+%(task_uuid)s@example.com
@@ -197,14 +198,14 @@ workflow:
         reply: no-reply@example.com
         # String
         # Default email template for this stage
-        template: initial.txt
+        template: initial.html
         # String
         # Default email html template for this stage
         # html_template: <your_value>
       token:
         # String
         # Default email subject for this stage
-        subject: Task Token
+        subject: Task Token for Lorius Cloud
         # String
         # Default from email for this stage
         from: bounce+%(task_uuid)s@example.com
@@ -213,14 +214,14 @@ workflow:
         reply: no-reply@example.com
         # String
         # Default email template for this stage
-        template: token.txt
+        template: token.html
         # String
         # Default email html template for this stage
         # html_template: <your_value>
       completed:
         # String
         # Default email subject for this stage
-        subject: Task Completed
+        subject: Task Completed in Lorius Cloud
         # String
         # Default from email for this stage
         from: bounce+%(task_uuid)s@example.com
@@ -229,7 +230,7 @@ workflow:
         reply: no-reply@example.com
         # String
         # Default email template for this stage
-        template: completed.txt
+        template: completed.html
         # String
         # Default email html template for this stage
         # html_template: <your_value>
@@ -446,14 +447,14 @@ workflow:
       # Email config overrides for this task over task defaults.See 'adjutant.workflow.emails'.
       emails:
         completed:
-          subject: signup completed
-          template: create_project_and_user_completed.txt
+          subject: Signup completed in Lorius Cloud
+          template: create_project_and_user_completed.html
         initial:
-          subject: signup received
-          template: create_project_and_user_initial.txt
+          subject: Signup received for Lorius Cloud
+          template: create_project_and_user_initial.html
         token:
-          subject: signup approved
-          template: create_project_and_user_token.txt
+          subject: Signup approved for Lorius Cloud
+          template: create_project_and_user_token.html
       # Dict
       # Notification config overrides for this task over task defaults.See 'adjutant.workflow.notifications'.
       notifications:
@@ -528,12 +529,12 @@ workflow:
       # Email config overrides for this task over task defaults.See 'adjutant.workflow.emails'.
       emails:
         completed:
-          subject: invite_user_to_project
-          template: invite_user_to_project_completed.txt
+          subject: Invitation to join Lorius Cloud completed
+          template: invite_user_to_project_completed.html
         initial: null
         token:
-          subject: invite_user_to_project
-          template: invite_user_to_project_token.txt
+          subject: Invitation to Join Loris Cloud
+          template: invite_user_to_project_token.html
       # Dict
       # Notification config overrides for this task over task defaults.See 'adjutant.workflow.notifications'.
       notifications:
@@ -570,12 +571,12 @@ workflow:
       # Email config overrides for this task over task defaults.See 'adjutant.workflow.emails'.
       emails:
         completed:
-          subject: Password Reset for OpenStack
-          template: reset_user_password_completed.txt
+          subject: Password Reset for Lorius Cloud completed
+          template: reset_user_password_completed.html
         initial: null
         token:
-          subject: Password Reset for OpenStack
-          template: reset_user_password_token.txt
+          subject: Password Reset for Lorius Cloud
+          template: reset_user_password_token.html
       # Dict
       # Notification config overrides for this task over task defaults.See 'adjutant.workflow.notifications'.
       notifications:
@@ -610,18 +611,18 @@ workflow:
         SendAdditionalEmailAction:
           initial:
             email_current_user: true
-            subject: OpenStack Email Update Requested
-            template: update_user_email_started.txt
+            subject: Lorius Cloud Email Update Requested
+            template: update_user_email_started.html
       # Dict
       # Email config overrides for this task over task defaults.See 'adjutant.workflow.emails'.
       emails:
         completed:
-          subject: Email Update Complete
-          template: update_user_email_completed.txt
+          subject: Lorius Cloud Email Update Complete
+          template: update_user_email_completed.html
         initial: null
         token:
-          subject: update_user_email_token
-          template: update_user_email_token.txt
+          subject: Lorius Cloud Email Update
+          template: update_user_email_token.html
       # Dict
       # Notification config overrides for this task over task defaults.See 'adjutant.workflow.notifications'.
       notifications:
@@ -658,8 +659,8 @@ workflow:
       # Email config overrides for this task over task defaults.See 'adjutant.workflow.emails'.
       emails:
         completed:
-          subject: signup completed
-          template: create_project_and_user_completed.txt
+          subject: Signup completed for Lorius Cloud
+          template: create_project_and_user_completed.html
         initial: null
         token: null
       # Dict
