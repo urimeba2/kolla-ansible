@@ -59,9 +59,19 @@
 # We therefore fall back to manual commands to register the database
 # and set a default retention policy.
 # [1] https://github.com/influxdata/influxdb-python#influxdb-pre-v110-users
+monasca_host_one: "192.168.0.12"
+
+# - name: List influxdb databases
+#   become: true
+#   command: "docker exec influxdb influx -host {{ monasca_influxdb_address }} -port {{ monasca_influxdb_http_port }} -execute 'show databases'"
+#   run_once: True
+#   delegate_to: "{{ groups['influxdb'][0] }}"
+#   register: monasca_influxdb_database
+#   changed_when: False
+
 - name: List influxdb databases
   become: true
-  command: "docker exec influxdb influx -host {{ monasca_influxdb_address }} -port {{ monasca_influxdb_http_port }} -execute 'show databases'"
+  command: "docker exec influxdb influx -host {{ monasca_host_one }} -port {{ monasca_influxdb_http_port }} -execute 'show databases'"
   run_once: True
   delegate_to: "{{ groups['influxdb'][0] }}"
   register: monasca_influxdb_database
@@ -70,7 +80,7 @@
 - name: Creating monasca influxdb database
   become: true
   command: >
-    docker exec influxdb influx -host {{ monasca_influxdb_address }} -port {{ monasca_influxdb_http_port }} -execute
+    docker exec influxdb influx -host {{ monasca_host_one }} -port {{ monasca_influxdb_http_port }} -execute
     'CREATE DATABASE {{ monasca_influxdb_name }} WITH DURATION {{ monasca_influxdb_retention_policy.duration }}
     REPLICATION  {{ monasca_influxdb_retention_policy.replication_count }} NAME {{ monasca_influxdb_retention_policy.name }}'
   run_once: True
