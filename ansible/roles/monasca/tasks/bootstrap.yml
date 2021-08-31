@@ -59,7 +59,7 @@
 # We therefore fall back to manual commands to register the database
 # and set a default retention policy.
 # [1] https://github.com/influxdata/influxdb-python#influxdb-pre-v110-users
-monasca_host_one: "192.168.0.12"
+
 
 # - name: List influxdb databases
 #   become: true

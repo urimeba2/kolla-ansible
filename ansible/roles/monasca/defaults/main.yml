@@ -123,6 +123,8 @@ monasca_influxdb_retention_policy:
   duration: "1w"
   replication_count: 1
 
+monasca_host_one: "192.168.0.12"
+
 ####################
 # Monasca
 ####################
