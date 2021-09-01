@@ -1,5 +1,5 @@
 [DEFAULT]
-debug = {{ cloudkitty_logging_debug }}
+debug = True
 
 log_dir = /var/log/kolla/cloudkitty
 
@@ -51,6 +51,8 @@ ssl_ca_file = {{ om_rabbitmq_cacert }}
 
 [collect]
 collector = {{ cloudkitty_collector_backend }}
+period = 300
+wait_periods = 0
 {% if cloudkitty_custom_metrics_used %}
 metrics_conf = /etc/cloudkitty/{{ cloudkitty_custom_metrics_yaml_file }}
 {% endif %}
