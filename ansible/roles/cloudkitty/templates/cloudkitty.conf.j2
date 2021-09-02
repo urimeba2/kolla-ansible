@@ -57,16 +57,16 @@ wait_periods = 1
 metrics_conf = /etc/cloudkitty/{{ cloudkitty_custom_metrics_yaml_file }}
 {% endif %}
 
-#[fetcher_keystone]
-#keystone_version = 3
-#auth_section = keystone_authtoken
-#region_name = {{ openstack_region_name }}
+[fetcher_keystone]
+keystone_version = 3
+auth_section = keystone_authtoken
+region_name = {{ openstack_region_name }}
 
-[fetcher_monasca]
-dimension_name = project_id
+#[fetcher_monasca]
+#dimension_name = project_id
 #monasca_tenant_id = 
-monasca_service_name = monasca-api
-interface = internal
+#monasca_service_name = monasca-api
+#interface = internal
 
 {% if cloudkitty_collector_backend == "gnocchi" %}
 [collector_gnocchi]
