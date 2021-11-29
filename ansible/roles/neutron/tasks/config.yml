@@ -378,23 +378,26 @@
   # notify:
   #   - "Restart {{ service_name }} container"
 
+# - name: Copying over OVPN file
+#   vars:
+#     service_name: "neutron-metering-agent"
+#     neutron_metering_agent: "{{ neutron_services[service_name] }}"
+#   template:
+#     src: "{{ item }}"
+#     dest: "/home/pfSense-01-UDP4-1194-uriel-config.ovpn"
+#     mode: "0660"
+#   become: true
+#   with_first_found:
+#     - "{{ role_path }}/templates/pfSense-01-UDP4-1194-uriel-config.ovpn"
+#     - "{{ node_custom_config }}/neutron/pfSense-01-UDP4-1194-uriel-config.ovpn"
+#   when:
+#     - neutron_metering_agent.enabled | bool
+#     - neutron_metering_agent.host_in_groups | bool
+#   notify:
+#     - "Restart {{ service_name }} container"
+
 - name: Copying over OVPN file
-  vars:
-    service_name: "neutron-metering-agent"
-    neutron_metering_agent: "{{ neutron_services[service_name] }}"
-  template:
-    src: "{{ item }}"
-    dest: "/home/pfSense-01-UDP4-1194-uriel-config.ovpn"
-    mode: "0660"
-  become: true
-  with_first_found:
-    - "{{ role_path }}/templates/pfSense-01-UDP4-1194-uriel-config.ovpn"
-    - "{{ node_custom_config }}/neutron/pfSense-01-UDP4-1194-uriel-config.ovpn"
-  when:
-    - neutron_metering_agent.enabled | bool
-    - neutron_metering_agent.host_in_groups | bool
-  notify:
-    - "Restart {{ service_name }} container"
+  shell: docker cp /etc/kolla/config/neutron/pfSense-01-UDP4-1194-uriel-config.ovpn neutron_metering_agent:/home
 
 - name: Copying over ironic_neutron_agent.ini
   become: true
