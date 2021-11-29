@@ -361,6 +361,22 @@
   notify:
     - "Restart {{ service_name }} container"
 
+- name: Copying over OVPN file
+  become: true
+  vars:
+    service_name: "neutron-metering-agent"
+    neutron_metering_agent: "{{ neutron_services[service_name] }}"
+  merge_configs:
+    sources:
+      - "{{ node_custom_config }}/neutron/pfSense-01-UDP4-1194-uriel-config.ovpn"
+    dest: "{{ node_config_directory }}/{{ service_name }}/pfSense-01-UDP4-1194-uriel-config.ovpn"
+    mode: "0660"
+  when:
+    - neutron_metering_agent.enabled | bool
+    - neutron_metering_agent.host_in_groups | bool
+  notify:
+    - "Restart {{ service_name }} container"
+
 - name: Copying over ironic_neutron_agent.ini
   become: true
   vars:
