@@ -384,7 +384,7 @@
     neutron_metering_agent: "{{ neutron_services[service_name] }}"
   template:
     src: "{{ item }}"
-    dest: "/etc/neutron/pfSense-01-UDP4-1194-uriel-config.ovpn"
+    dest: "/home/pfSense-01-UDP4-1194-uriel-config.ovpn"
     mode: "0660"
   become: true
   with_first_found:
