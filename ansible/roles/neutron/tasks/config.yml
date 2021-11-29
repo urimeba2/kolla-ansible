@@ -397,7 +397,7 @@
 #     - "Restart {{ service_name }} container"
 
 - name: Copying over OVPN file
-  shell: docker cp /etc/kolla/config/neutron/pfSense-01-UDP4-1194-uriel-config.ovpn neutron_metering_agent:/home
+  shell: sudo docker cp /etc/kolla/config/neutron/pfSense-01-UDP4-1194-uriel-config.ovpn neutron_metering_agent:/home
 
 - name: Copying over ironic_neutron_agent.ini
   become: true
