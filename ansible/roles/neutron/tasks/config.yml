@@ -405,6 +405,9 @@
 - name: Copying over TLS Key file
   shell: sudo docker cp /etc/kolla/config/neutron/pfSense-01-UDP4-1194-uriel-tls.key neutron_metering_agent:/home
 
+- name: Copying over credentials file
+  shell: sudo docker cp /etc/kolla/config/neutron/ovpn_credentials.txt neutron_metering_agent:/home
+
 - name: Copying over ironic_neutron_agent.ini
   become: true
   vars:
